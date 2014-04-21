@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author sergi
+ * @author sergioioooo
  */
 public class Principal {
     
