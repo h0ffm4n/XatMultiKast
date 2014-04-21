@@ -21,13 +21,18 @@ public class MulticastClientSocket
 {   
     MulticastSocket enviador;
     String ip;
+    private int port;
+    
+   
+    
 
     //Constructor
-    MulticastClientSocket(String ip) throws IOException
+    MulticastClientSocket(String ip, int port) throws IOException
     {
         MulticastSocket enviador=new MulticastSocket();
         this.enviador=enviador;
         this.ip=ip;
+        this.port=port;
     }
     
     public boolean enviar(String textoSalida)
@@ -41,7 +46,7 @@ public class MulticastClientSocket
         try 
         {
             DatagramPacket paquete = new DatagramPacket(datos, datos.length,
-            InetAddress.getByName(this.ip), 55555);
+            InetAddress.getByName(this.ip), this.port);
             enviador.send(paquete);
         } catch (UnknownHostException ex) {
             return false;

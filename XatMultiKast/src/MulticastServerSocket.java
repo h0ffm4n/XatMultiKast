@@ -1,4 +1,6 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -6,6 +8,7 @@ import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,11 +24,16 @@ public class MulticastServerSocket extends Thread
 {
     private boolean servidorEscuchando=false;
     public MulticastSocket receptor;
+    public final String ip;
+    public final int tipoUnion=1;
+    public final int tipoVerificacion=2;
+    public final int tipoNormal=3;
     
-MulticastServerSocket(String ip) throws IOException
+MulticastServerSocket(String ip,int port) throws IOException
 {   
-    MulticastSocket receptor = new MulticastSocket(55555);
+    MulticastSocket receptor = new MulticastSocket(port);
     this.receptor=receptor;
+    this.ip=ip;
     
     
     //union a grupo
@@ -34,17 +42,19 @@ MulticastServerSocket(String ip) throws IOException
         System.out.println("Fallo en la union de grupo");
     }
     
-    
     servidorEscuchando=true;
+   
 }
     @Override
 public void run() 
 {
     while(servidorEscuchando)
     {
+        
         try 
         {
             sleep(200);
+            
         } 
         catch (InterruptedException ex) 
         {
@@ -55,9 +65,26 @@ public void run()
             //Codigo Captura Socket y repintar la pantalla
             byte[] mensaje=recepcionarMensaje();
             String sMensaje=Principal.recuperarArray(mensaje);
-            if(mensaje!=null)
-            {
-                Principal.actualizar(sMensaje);
+            if(sMensaje!=null)
+            {   
+                //Verificacion tipo de mensaje
+                int i=tipoMensaje(sMensaje);
+                sMensaje=cortarCabecera(sMensaje);
+                    switch(i)
+                    {
+                        
+                        case 49://tipo union
+                            Principal.añadirMiembro(sMensaje);
+                                break;
+                            
+                        case 50://tipo Verificacion
+                                break;
+                            
+                        default ://Mensaje normal
+                            Principal.actualizar(sMensaje);
+                            break;
+                    }
+                
             }
         } 
         
@@ -65,18 +92,23 @@ public void run()
         {
             System.out.println("Fallo recepcion");
         }
+        
     }
         
 }
 public boolean unirseGrupo(String ip)
-{
+{   
+    System.out.println("uniendose");
         try {
             receptor.joinGroup(InetAddress.getByName(ip));
         } catch (UnknownHostException ex) {
             return false;
         } catch (IOException ex) {
-            return false;
+            int hello=tipoUnion;
+            Principal.enviar(hello+Principal.ventanaReg.jTextFieldNick.getText());
         }
+        int hello=tipoUnion;
+        Principal.enviar(hello+Principal.ventanaReg.jTextFieldNick.getText());
         return true;
 }
 
@@ -99,5 +131,23 @@ public byte[] recepcionarMensaje() throws IOException
     {
         System.out.println(mensajeAImprimir);
     }
-  
+
+    private int tipoMensaje(String sMensaje) {
+       byte[] data=sMensaje.getBytes();
+       //Check header
+       int header=0;
+       header=(int)data[0];
+      
+       //devolvemos la cabecera
+       return header;
+      
+       
+    }
+
+    private String cortarCabecera(String sMensaje) 
+    {
+        sMensaje=sMensaje.substring(1);
+        return sMensaje;
+    }
+
 }
