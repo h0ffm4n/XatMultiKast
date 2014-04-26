@@ -39,6 +39,8 @@ public class MulticastClientSocket
     {   
         
         byte [] datos = new byte[textoSalida.length()];
+        
+        //Por ahora todo lo envia con \n
         datos = (textoSalida+"\n").getBytes();
         
         

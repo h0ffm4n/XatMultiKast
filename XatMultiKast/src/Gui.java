@@ -1,9 +1,18 @@
 
+import static com.oracle.jrockit.jfr.ContentType.Timestamp;
+import java.awt.Component;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,8 +60,18 @@ public class Gui extends javax.swing.JFrame {
         jTextFieldNick = new javax.swing.JTextField();
         jScrollPaneMiembros = new javax.swing.JScrollPane();
         jEditorPaneMiembros = new javax.swing.JEditorPane();
+        jCheckBoxEcho = new javax.swing.JCheckBox();
+        jCheckBoxAck = new javax.swing.JCheckBox();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SHL MKXAT");
+        setMinimumSize(new java.awt.Dimension(786, 542));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -65,6 +84,7 @@ public class Gui extends javax.swing.JFrame {
 
         jButtonSend.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonSend.setText("Send");
+        jButtonSend.setEnabled(false);
         jButtonSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSendActionPerformed(evt);
@@ -78,11 +98,11 @@ public class Gui extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldInputText, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldInputText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)))
+                        .addComponent(jButtonSend, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -92,8 +112,8 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jTextFieldInputText))
+                    .addComponent(jTextFieldInputText)
+                    .addComponent(jButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -118,6 +138,12 @@ public class Gui extends javax.swing.JFrame {
         });
 
         jButtonRelease.setText("Release");
+        jButtonRelease.setEnabled(false);
+        jButtonRelease.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReleaseActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel2.setText("Port:");
@@ -138,31 +164,52 @@ public class Gui extends javax.swing.JFrame {
         jEditorPaneMiembros.setPreferredSize(new java.awt.Dimension(14, 40));
         jScrollPaneMiembros.setViewportView(jEditorPaneMiembros);
 
+        jCheckBoxEcho.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jCheckBoxEcho.setText("Echo");
+
+        jCheckBoxAck.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jCheckBoxAck.setText("ACK Required");
+
+        jToggleButton1.setText("Off");
+        jToggleButton1.setEnabled(false);
+
+        jButton1.setText("No implementado");
+        jButton1.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldIp))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPaneMiembros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jCheckBoxEcho)
+                        .addGap(30, 30, 30)
+                        .addComponent(jCheckBoxAck))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButtonConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonRelease, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jToggleButton1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(24, 24, 24)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPuerto)
-                            .addComponent(jTextFieldNick)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonRelease, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldPuerto, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextFieldNick, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextFieldIp))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -182,12 +229,42 @@ public class Gui extends javax.swing.JFrame {
                     .addComponent(jTextFieldNick, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConnect)
                     .addComponent(jButtonRelease))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPaneMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addComponent(jScrollPaneMiembros, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxEcho)
+                    .addComponent(jCheckBoxAck))
+                .addContainerGap())
         );
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("save chat");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,16 +272,16 @@ public class Gui extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -217,6 +294,12 @@ public class Gui extends javax.swing.JFrame {
         try {
             Principal.iniciarClientSocket();
             Principal.iniciarServerSocket();
+            this.jButtonRelease.setEnabled(true);
+            this.jButtonSend.setEnabled(true);
+            this.jButtonConnect.setEnabled(false);
+            this.jTextFieldIp.setEnabled(false);
+            this.jTextFieldPuerto.setEnabled(false);
+            this.jTextFieldNick.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -224,7 +307,48 @@ public class Gui extends javax.swing.JFrame {
 
     private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
         Principal.enviar();
+        this.jTextFieldInputText.setText("");
     }//GEN-LAST:event_jButtonSendActionPerformed
+
+    private void jButtonReleaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReleaseActionPerformed
+        try {
+            Principal.release();        // TODO add your handling code here:
+            this.jButtonConnect.setEnabled(true);
+            this.jButtonRelease.setEnabled(false);
+            this.jButtonSend.setEnabled(false);
+            this.jTextFieldIp.setEnabled(true);
+            this.jTextFieldPuerto.setEnabled(true);
+            this.jTextFieldNick.setEnabled(true);
+        } catch (IOException ex) {
+            Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonReleaseActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+      //Create a file chooser
+    final JFileChooser fc = new JFileChooser();
+    int returnVal = fc.showSaveDialog(Principal.ventanaReg);
+     if (returnVal == JFileChooser.APPROVE_OPTION) 
+     {
+            
+        try {
+            File file;
+            file = new File(fc.getSelectedFile().getAbsolutePath());
+            System.out.println(file.exists());
+            PrintWriter pw = new PrintWriter(file);
+            String s=Principal.ventanaReg.jEditorPaneOutputText.getText();
+            pw.println(new Timestamp(new Date().getTime()));
+            pw.println(s);
+            pw.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+     }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,14 +356,21 @@ public class Gui extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonConnect;
     private javax.swing.JButton jButtonRelease;
-    private javax.swing.JButton jButtonSend;
+    public javax.swing.JButton jButtonSend;
+    public javax.swing.JCheckBox jCheckBoxAck;
+    public javax.swing.JCheckBox jCheckBoxEcho;
     public javax.swing.JEditorPane jEditorPaneMiembros;
     public javax.swing.JEditorPane jEditorPaneOutputText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -248,6 +379,7 @@ public class Gui extends javax.swing.JFrame {
     public javax.swing.JTextField jTextFieldIp;
     public javax.swing.JTextField jTextFieldNick;
     public javax.swing.JTextField jTextFieldPuerto;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
     

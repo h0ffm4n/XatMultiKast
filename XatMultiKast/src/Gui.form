@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="File"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exit"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="save chat"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="SHL MKXAT"/>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[786, 542]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
@@ -25,9 +59,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jPanel2" max="32767" attributes="0"/>
+              <Component id="jPanel2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -36,7 +70,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
@@ -61,11 +95,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="486" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jTextFieldInputText" min="-2" pref="357" max="-2" attributes="0"/>
+                          <Component id="jTextFieldInputText" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonSend" pref="73" max="32767" attributes="0"/>
+                          <Component id="jButtonSend" min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -79,8 +113,8 @@
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButtonSend" pref="35" max="32767" attributes="0"/>
                       <Component id="jTextFieldInputText" max="32767" attributes="0"/>
+                      <Component id="jButtonSend" pref="35" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -124,10 +158,14 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Send"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSendActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -143,31 +181,43 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPaneMiembros" pref="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextFieldIp" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPaneMiembros" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jCheckBoxEcho" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxAck" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jButtonConnect" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButtonRelease" min="-2" pref="107" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jButton1" min="-2" pref="163" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextFieldPuerto" max="32767" attributes="0"/>
-                              <Component id="jTextFieldNick" max="32767" attributes="0"/>
+                              <Component id="jTextFieldPuerto" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jTextFieldNick" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jTextFieldIp" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="jButtonConnect" min="-2" pref="89" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonRelease" min="-2" pref="91" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -194,12 +244,22 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonConnect" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonRelease" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPaneMiembros" min="-2" pref="270" max="-2" attributes="0"/>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <Component id="jScrollPaneMiembros" pref="269" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jCheckBoxEcho" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxAck" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -232,7 +292,11 @@
         <Component class="javax.swing.JButton" name="jButtonRelease">
           <Properties>
             <Property name="text" type="java.lang.String" value="Release"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReleaseActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -302,6 +366,40 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxEcho">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Echo"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxAck">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ACK Required"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Off"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="No implementado"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

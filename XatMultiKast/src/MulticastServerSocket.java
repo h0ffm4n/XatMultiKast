@@ -1,14 +1,9 @@
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,12 +17,13 @@ import javax.swing.Timer;
  */
 public class MulticastServerSocket extends Thread
 {
-    private boolean servidorEscuchando=false;
+    public boolean servidorEscuchando=false;
     public MulticastSocket receptor;
     public final String ip;
     public final int tipoUnion=1;
     public final int tipoVerificacion=2;
     public final int tipoNormal=3;
+    public final int tipoVerificado=4;
     
 MulticastServerSocket(String ip,int port) throws IOException
 {   
@@ -53,7 +49,7 @@ public void run()
         
         try 
         {
-            sleep(200);
+            sleep(500);
             
         } 
         catch (InterruptedException ex) 
@@ -75,14 +71,22 @@ public void run()
                         
                         case 49://tipo union
                             Principal.añadirMiembro(sMensaje);
-                                break;
+                            break;
                             
                         case 50://tipo Verificacion
-                                break;
+                            Principal.verificacionSolicitada(sMensaje);  
+                            break;
                             
-                        default ://Mensaje normal
+                        case 51 ://Mensaje normal
                             Principal.actualizar(sMensaje);
                             break;
+                        case 52:
+                            if(Principal.ventanaReg.jCheckBoxAck.isSelected())
+                            {
+                            Principal.actualizar(sMensaje);
+                            }
+                            break;
+                    
                     }
                 
             }
@@ -150,4 +154,11 @@ public byte[] recepcionarMensaje() throws IOException
         return sMensaje;
     }
 
+    public void salirGrupo() throws IOException 
+    {
+        receptor.leaveGroup(InetAddress.getByName(ip));
+        receptor.close();
+    }
+
+   
 }

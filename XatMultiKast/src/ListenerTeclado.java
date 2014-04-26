@@ -17,17 +17,26 @@ public class ListenerTeclado implements KeyListener
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("KeyTyped: "+e.getKeyCode());
+        
+        
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-       System.out.println("KeyPressed: "+e.getKeyCode());
+       System.out.println("click"+e.getKeyCode());
+       if(e.getKeyCode()==10)
+        {
+            //Enter
+            if(Principal.ventanaReg.jButtonSend.isEnabled())
+            {
+                Principal.ventanaReg.jButtonSend.doClick();
+            }
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("KeyReleased: "+e.getKeyCode());
+       
     }
     
 }
